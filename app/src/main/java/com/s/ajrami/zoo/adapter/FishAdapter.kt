@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.s.ajrami.zoo.R
+import com.s.ajrami.zoo.common.Constants
+import com.s.ajrami.zoo.common.Constants.FISH_CATEGORY_NUM
 import com.s.ajrami.zoo.dp.DatabaseHelper
 import com.s.ajrami.zoo.model.Fish
 import com.s.ajrami.zoo.ui.UpdateItem
@@ -36,13 +38,12 @@ class FishAdapter(var activity: Activity, var data: ArrayList<Fish>) :
 
 
             holder.update.setOnClickListener {
-
                 var i = Intent(activity,UpdateItem::class.java)
+                i.putExtra(Constants.ID_KEY, data[position].id_fish)
+                i.putExtra(Constants.NAME_KEY, data[position].name_fish)
+                i.putExtra(Constants.IMAGE_KEY, data[position].image_fish)
+                i.putExtra(Constants.CATEGORY_KEY, FISH_CATEGORY_NUM)
                 activity.startActivity(i)
-
-                val db = DatabaseHelper(activity)
-                db.updateFish(data[position].id_fish,data[position].name_fish!!,data[position].image_fish)
-
             }
             holder.delete.setOnClickListener {
                 val builder = AlertDialog.Builder(activity)

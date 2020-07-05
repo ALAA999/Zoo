@@ -3,7 +3,8 @@ package com.s.ajrami.zoo.model
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Animal (var id_animal:Int,var name_animal:String,var image_animal:String):Parcelable{
+data class Animal(var id_animal: Int, var name_animal: String, var image_animal: String) :
+    Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
@@ -31,7 +32,7 @@ data class Animal (var id_animal:Int,var name_animal:String,var image_animal:Str
                     "$COL_NAME TEXT NOT NULL, $COL_IMG INTEGER )"
 
         override fun createFromParcel(parcel: Parcel): Animal {
-            return Animal (parcel)
+            return Animal(parcel)
         }
 
         override fun newArray(size: Int): Array<Animal?> {

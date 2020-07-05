@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.s.ajrami.zoo.R
+import com.s.ajrami.zoo.common.Constants.*
 import com.s.ajrami.zoo.dp.DatabaseHelper
 import com.s.ajrami.zoo.model.Animal
 import com.s.ajrami.zoo.ui.MainActivity
@@ -40,21 +41,12 @@ class AnimalAdapter(var activity: Activity, var data: ArrayList<Animal>) :
 
 
         holder.update.setOnClickListener {
-
-            val db = DatabaseHelper(activity)
-
             var i = Intent(activity,UpdateItem::class.java)
+            i.putExtra(ID_KEY, data[position].id_animal)
+            i.putExtra(NAME_KEY, data[position].name_animal)
+            i.putExtra(IMAGE_KEY, data[position].image_animal)
+            i.putExtra(CATEGORY_KEY, ANIMAL_CATEGORY_NUM)
              activity.startActivity(i)
-
-
-
-            db.updateAnimal(
-                data[position].id_animal,
-                data[position].name_animal,
-                data[position].image_animal
-            )
-
-
         }
         holder.delete.setOnClickListener {
             val builder = AlertDialog.Builder(activity)

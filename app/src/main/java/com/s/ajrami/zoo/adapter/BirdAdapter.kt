@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.s.ajrami.zoo.R
+import com.s.ajrami.zoo.common.Constants
+import com.s.ajrami.zoo.common.Constants.BIRD_CATEGORY_NUM
 import com.s.ajrami.zoo.dp.DatabaseHelper
 import com.s.ajrami.zoo.model.Bird
 import com.s.ajrami.zoo.ui.UpdateItem
@@ -35,11 +37,11 @@ class BirdAdapter(var activity: Activity, var data: ArrayList<Bird>) :
 
         holder.update.setOnClickListener {
             var i = Intent(activity,UpdateItem::class.java)
+            i.putExtra(Constants.ID_KEY, data[position].id_bird)
+            i.putExtra(Constants.NAME_KEY, data[position].name_bird)
+            i.putExtra(Constants.IMAGE_KEY, data[position].image_bird)
+            i.putExtra(Constants.CATEGORY_KEY, BIRD_CATEGORY_NUM)
             activity.startActivity(i)
-
-            val db = DatabaseHelper(activity)
-            db.updateBird(data[position].id_bird,data[position].name_bird,data[position].image_bird)
-
         }
 
 

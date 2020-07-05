@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.s.ajrami.zoo.R
+import com.s.ajrami.zoo.common.Constants.*
 import com.s.ajrami.zoo.dp.DatabaseHelper
 import com.vansuita.pickimage.bean.PickResult
 import com.vansuita.pickimage.bundle.PickSetup
@@ -25,45 +26,41 @@ class Add : AppCompatActivity(), IPickResult {
         btn_add.setOnClickListener {
             var name: String = name_item.text.toString()
 
-            if (name.isEmpty()){
+            if (name.isEmpty()) {
                 Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show()
             } else {
-                val res = db.addanimal(name,img.toString())
-                if(res){
+                val res: Boolean = when (sp_type.selectedItemPosition) {
+                    ANIMAL_CATEGORY_NUM -> {
+                        db.addanimal(name, img.toString())
+                    }
+                    BIRD_CATEGORY_NUM -> {
+                        db.addbird(name, img.toString())
+                    }
+                    FISH_CATEGORY_NUM -> {
+                        db.addfish(name, img.toString())
+                    }
+                    else -> false
+                }
+                if (res) {
                     Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show()
                     finish()
-                }else{
+                } else {
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
-            /*  var sp = sp_type.selectedItem.toString()
-
-            if (name.isEmpty()){
-                Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show()}
-           if (sp.equals("Animal")){
-                db.addanimal(name,img.toString())
-
-                } else if (sp.equals("Bird")){
-                db.addbird(name, img.toString())
-                }
-                else
-                db.addfish(name,img.toString())
-                }*/
-
-
         add.setOnClickListener {
             PickImageDialog.build(PickSetup()).show(this)
-        }}
-
-        override fun onPickResult(r: PickResult?) {
-            if (r!!.getError() == null) {
-                add.setImageURI(r!!.uri);
-                img = r.uri.toString()
-            } else {
-                Toast.makeText(this, r.error.toString(), Toast.LENGTH_LONG).show();
-            }
         }
     }
+
+    override fun onPickResult(r: PickResult?) {
+        if (r!!.getError() == null) {
+            add.setImageURI(r!!.uri);
+            img = r.uri.toString()
+        } else {
+            Toast.makeText(this, r.error.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+}
 
