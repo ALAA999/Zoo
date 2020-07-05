@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_animal"
+        android:title="Animal"
+        android:icon="@drawable/ic_ani"
+        />
+
+    <item
+        android:id="@+id/navigation_bird"
+        android:title="Bird"
+        android:icon="@drawable/ic_birds"
+       />
+
+    <item
+        android:id="@+id/navigation_fish"
+        android:title="Fish"
+        android:icon="@drawable/ic_fishs"
+        />
+
+</menu>
